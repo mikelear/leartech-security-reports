@@ -1,0 +1,16 @@
+# Grype ignore rules for known false positives / accepted risks
+# Add CVEs here after documenting the reasoning in the GitHub Issue
+# Format: https://github.com/anchore/grype#specifying-matches-to-ignore
+#
+# To add an ignore:
+# 1. Document reasoning in the GitHub Issue (why it's not exploitable)
+# 2. Add the rule below
+# 3. Label the issue as 'false-positive' and close it
+# 4. Next scan will skip the ignored CVE
+
+ignore:
+  # Example:
+  # - vulnerability: CVE-2022-26945
+  #   package:
+  #     name: github.com/hashicorp/go-getter
+  #   reason: "Go module dep in nuclei binary, not exploitable — our scans only hit trusted endpoints"

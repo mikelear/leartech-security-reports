@@ -1,0 +1,13 @@
+# Nuclei template exclusions for known false positives
+# Add template IDs here after documenting in the GitHub Issue
+# One template ID per line
+#
+# To add an exclusion:
+# 1. Document reasoning in the GitHub Issue
+# 2. Add the template ID below
+# 3. Label the issue as 'false-positive' and close it
+# 4. Next scan will skip the template
+
+# Example:
+# wordpress-login
+# apache-detect
