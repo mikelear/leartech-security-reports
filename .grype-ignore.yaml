@@ -9,8 +9,108 @@
 # 4. Next scan will skip the ignored CVE
 
 ignore:
-  # Example:
-  # - vulnerability: CVE-2022-26945
-  #   package:
-  #     name: github.com/hashicorp/go-getter
-  #   reason: "Go module dep in nuclei binary, not exploitable — our scans only hit trusted endpoints"
+  # --- security-tools:latest — Go module transitive deps in compiled binaries ---
+  # These are bundled inside BlackArch-installed tools (nuclei, snyk, etc.)
+  # Not exploitable: CronJob runs scans and exits, no network services, no user input
+  # Reviewed: 2026-04-03, Issues #1-5
+
+  # hashicorp/go-getter — path traversal / arbitrary file write on malicious URL fetch
+  # Our scans only hit trusted endpoints we control
+  - vulnerability: CVE-2022-26945
+    package:
+      name: github.com/hashicorp/go-getter
+  - vulnerability: CVE-2024-3817
+    package:
+      name: github.com/hashicorp/go-getter
+  - vulnerability: GHSA-q64h-39hv-4cf7
+    package:
+      name: github.com/hashicorp/go-getter
+  - vulnerability: GHSA-x24g-9w7v-vprh
+    package:
+      name: github.com/hashicorp/go-getter
+  - vulnerability: CVE-2022-30321
+    package:
+      name: github.com/hashicorp/go-getter
+  - vulnerability: CVE-2022-30322
+    package:
+      name: github.com/hashicorp/go-getter
+  - vulnerability: CVE-2022-30323
+    package:
+      name: github.com/hashicorp/go-getter
+  - vulnerability: CVE-2024-6257
+    package:
+      name: github.com/hashicorp/go-getter
+  - vulnerability: GHSA-28r2-q6m8-9hpx
+    package:
+      name: github.com/hashicorp/go-getter
+  - vulnerability: GHSA-cjr4-fv6c-f3mv
+    package:
+      name: github.com/hashicorp/go-getter
+  - vulnerability: GHSA-fcgg-rvwg-jv58
+    package:
+      name: github.com/hashicorp/go-getter
+
+  # docker/docker — AuthZ bypass, requires Docker API access
+  # Our container doesn't run Docker
+  - vulnerability: CVE-2024-41110
+    package:
+      name: github.com/docker/docker
+  - vulnerability: GHSA-v23v-6jw2-98fq
+    package:
+      name: github.com/docker/docker
+  - vulnerability: CVE-2024-36623
+    package:
+      name: github.com/docker/docker
+  - vulnerability: GHSA-232p-vwff-86mp
+    package:
+      name: github.com/docker/docker
+
+  # golang.org/x/crypto — old version bundled in compiled binary
+  - vulnerability: GHSA-v778-237x-gjrc
+    package:
+      name: golang.org/x/crypto
+  - vulnerability: GHSA-8c26-wmh5-6g9v
+    package:
+      name: golang.org/x/crypto
+
+  # golang.org/x/net — HTTP/2 and text processing vulns in old bundled version
+  - vulnerability: GHSA-4374-p667-p6c8
+    package:
+      name: golang.org/x/net
+  - vulnerability: GHSA-69cg-p879-7622
+    package:
+      name: golang.org/x/net
+  - vulnerability: GHSA-vvpx-j8f3-3w6h
+    package:
+      name: golang.org/x/net
+
+  # golang.org/x/text — old version in compiled binary
+  - vulnerability: GHSA-69ch-w2m2-3vjp
+    package:
+      name: golang.org/x/text
+
+  # google.golang.org/protobuf — old protobuf in compiled binary
+  - vulnerability: CVE-2015-5237
+    package:
+      name: google.golang.org/protobuf
+
+  # google.golang.org/grpc — old gRPC in compiled binary
+  - vulnerability: GHSA-m425-mq94-257g
+    package:
+      name: google.golang.org/grpc
+
+  # containerd — old version bundled, no container runtime in our image
+  - vulnerability: GHSA-crp2-qrr5-8pq7
+    package:
+      name: github.com/containerd/containerd
+
+  # docker/distribution — old registry client lib
+  - vulnerability: GHSA-hqxw-f8mx-cpmw
+    package:
+      name: github.com/docker/distribution
+
+  # --- ai-review-worker:latest — Python transitive dep ---
+  # kubernetes Python client bundled old version, not exploitable in review worker context
+  - vulnerability: CVE-2016-1906
+    package:
+      name: kubernetes
