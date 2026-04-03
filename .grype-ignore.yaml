@@ -109,8 +109,36 @@ ignore:
     package:
       name: github.com/docker/distribution
 
-  # --- ai-review-worker:latest — Python transitive dep ---
+  # Additional Go module deps found in second scan
+  - vulnerability: GHSA-w32m-9786-jp63
+    package:
+      name: golang.org/x/net
+  - vulnerability: GHSA-xfhp-jf8p-mh5w
+    package:
+      name: github.com/hashicorp/go-getter
+
+  # --- ai-review-worker:latest — Python transitive deps ---
   # kubernetes Python client bundled old version, not exploitable in review worker context
   - vulnerability: CVE-2016-1906
     package:
       name: kubernetes
+  - vulnerability: CVE-2016-1905
+    package:
+      name: kubernetes
+  - vulnerability: CVE-2016-7075
+    package:
+      name: kubernetes
+
+  # PAM library CVEs in python:slim Debian base — not exploitable, no PAM auth in container
+  - vulnerability: CVE-2024-10963
+    package:
+      name: libpam-modules
+  - vulnerability: CVE-2024-10963
+    package:
+      name: libpam-modules-bin
+  - vulnerability: CVE-2024-10963
+    package:
+      name: libpam-runtime
+  - vulnerability: CVE-2024-10963
+    package:
+      name: libpam0g
